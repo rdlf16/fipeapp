@@ -215,7 +215,7 @@ function mudarAno() {
     })
 }
 function verificarSeItemEFavorito(dados) {
-    const listaFavoritos = JSON.parse(localStorage.getItem('lista'))
+    const listaFavoritos = JSON.parse(localStorage.getItem('lista')) || []
     let retorno = ''
     listaFavoritos.forEach(veiculo => {
         if(JSON.stringify(veiculo) === JSON.stringify(dados)) {
