@@ -67,7 +67,7 @@ function criarMarcas(dados) {
     mudarMarca()
 }
 function criarModelos(dados) {
-    const modelosEl = document.querySelector('[data-modelo]') ////////////////////////////
+    const modelosEl = document.querySelector('[data-modelo]') 
     const select = (`
             <h2>Modelos</h2>
             <select name="modelos" id="modelos">
@@ -144,11 +144,11 @@ export function criarPreco(dados) {
     }
 }
 function mudarTipo() {
-    const select = document.querySelector('[data-tipo]') ////////////////////////////
+    const select = document.querySelector('[data-tipo]') 
     select.addEventListener('change', event => {
-        const modeloEl = document.querySelector('[data-modelo]')////////////////////////////
-        const anoEl = document.querySelector('[data-ano]')////////////////////////////
-        const precoEl = document.querySelector('[data-preco')////////////////////////////
+        const modeloEl = document.querySelector('[data-modelo]')
+        const anoEl = document.querySelector('[data-ano]')
+        const precoEl = document.querySelector('[data-preco')
         if(anoEl !== null) {
             anoEl.remove()
             ano = null
@@ -169,10 +169,10 @@ function mudarTipo() {
     })
 }
 function mudarMarca() {
-    const select = document.querySelector('[data-marca]') ////////////////////////////
+    const select = document.querySelector('[data-marca]') 
     select.addEventListener('change', event => {
-        const anoEl = document.querySelector('[data-ano]') ////////////////////////////
-        const precoEl = document.querySelector('[data-preco]') ////////////////////////////
+        const anoEl = document.querySelector('[data-ano]') 
+        const precoEl = document.querySelector('[data-preco]') 
         if (anoEl !== null) {
             anoEl.remove()
             ano = null
@@ -189,9 +189,9 @@ function mudarMarca() {
     })
 }
 function mudarModelo() {
-    const select = document.querySelector('[data-modelo]') ////////////////////////////
+    const select = document.querySelector('[data-modelo]')
     select.addEventListener('change', event => {
-        const precoEl = document.querySelector('[data-preco]') ////////////////////////////
+        const precoEl = document.querySelector('[data-preco]') 
         if(precoEl !== null) {
             precoEl.remove()
         }
@@ -204,7 +204,7 @@ function mudarModelo() {
     })
 }
 function mudarAno() {
-    const select = document.querySelector('[data-ano]') ////////////////////////////
+    const select = document.querySelector('[data-ano]') 
     select.addEventListener('change', event => {
         ano = event.target.value
         if (tipo === 'null' || marca === 'null' || modelo === 'null' || ano === 'null') {
