@@ -1,0 +1,69 @@
+.veiculos {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--tamanho-cabecalho) - var(--tamanho-rodape));
+    justify-content: center;
+    width: 100%;
+}
+.veiculos-secao {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+.veiculos-select {
+    background-color: var(--cinza);
+    border-radius: 10px;
+    color: var(--claro);
+    font-size: 0.8rem;
+    outline: none;
+    padding: 0.5rem;
+    text-transform: uppercase;
+}
+.veiculos-item {
+    background-color: white;
+    color: black;
+    font-size: 0.8rem;
+}
+.veiculos-dropdown {
+    margin-bottom: 1rem;
+    width: 300px;
+}
+.veiculos-preco {
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    height: auto;
+    line-height: 1.6;
+    min-width: 350px;
+    overflow: hidden;
+    padding: 1.6rem;
+    position: relative;
+    text-transform: uppercase;
+}
+.preco h4{
+    overflow: hidden;
+}
+.veiculos-button--addLista {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+.veiculos-button--addLista  .fas {
+    color: var(--cinza);
+    outline: none;
+}
+.veiculos-button--addLista  .fas:hover {
+    color: var(--amarelo-escuro);
+}
+.fas.fa-star.active {
+    color: var(--amarelo-claro);
+}

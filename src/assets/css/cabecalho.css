@@ -1,0 +1,56 @@
+header {
+    background-color: var(--cinza-escuro);
+    color: white;
+}
+.cabecalho {
+    align-items: center;
+    display: flex;
+    height: var(--tamanho-cabecalho);
+    justify-content: space-between;
+    padding: 0 1rem;
+    width: 100%;
+}
+.div-liga--desliga {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.checkbox {
+    left: -99px; 
+    position: absolute;
+}
+.botao__liga-desliga {
+    cursor: pointer; 
+    display: inline-block;
+    height: 20px;
+    margin: 0 0.5rem;
+    position: relative;
+    vertical-align: middle;
+}
+.botao__liga-desliga::before, 
+.botao__liga-desliga::after {
+    content: ""; 
+    transition: all 0.3s ease;
+}
+.botao__liga-desliga::before {
+    background: gray;
+    border-radius: 10px;
+    display: inline-block;
+    height: 20px;
+    width: 50px;
+}
+.botao__liga-desliga::after {
+    background-color: white;
+    border-radius: 10px;
+    height: 16px;
+    left: 2px;
+    position: absolute;   
+    top: 2px; 
+    width: 16px;
+}
+.checkbox:checked + .botao__liga-desliga::before{
+    background: #55D069;
+}
+.checkbox:checked + .botao__liga-desliga::after{
+    left: 32px;
+}

@@ -1,0 +1,20 @@
+footer {
+    background-color: var(--cinza-escuro);
+    color: white;
+}
+.rodape {
+    align-items: center;
+    display: flex;
+    font-size: 1.2rem;
+    height: var(--tamanho-rodape);
+    justify-content: center;
+    width: 100%;
+}
+.link{
+    color: var(--azul-claro);
+    margin: 0 5px;
+    text-decoration: none;
+}
+.icone{
+    font-size: 1.3rem;
+}

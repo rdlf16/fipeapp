@@ -1,17 +1,18 @@
 import regex from "../util/util.js"
-import { criarTipoVeiculo, criarPreco } from './main.js'
+import { criarTipoVeiculo, criarPreco } from './criar.js'
+import { getTema } from "./tema.js"
 
 const btnLimparFavoritos = document.querySelector('[data-btnlimparfavoritos]')
-    btnLimparFavoritos.addEventListener('click', limparFavoritos)
-const btnLimparComparar = document.querySelector('[data-btnlimparcomparar]')
-    btnLimparComparar.addEventListener('click', limparComparacao)
+btnLimparFavoritos.addEventListener('click', limparFavoritos)
 const btnComparar = document.querySelector('[data-btncomparar]')
-    btnComparar.addEventListener('click', Comparar)
+btnComparar.addEventListener('click', Comparar)
 
 export function atualizaFavoritos() {
     const veiculos = JSON.parse(localStorage.getItem('lista')) || []
     const listaComparacao = JSON.parse(localStorage.getItem('comparacao')) || ['', '']
     const lista = document.querySelector('[data-listafavoritos]')
+    let tema = ''
+    if (getTema()) tema = 'sombraEscura'
 
     lista.innerHTML = (`    
     ${veiculos.map(veiculo => {
@@ -22,15 +23,15 @@ export function atualizaFavoritos() {
             }
         })
         const anoModificado = veiculo.AnoModelo === 32000 ? "0km" : veiculo.AnoModelo
-        return (`<li class="favoritos-item ${x}" data-codigo="${veiculo.CodigoFipe}" data-anoModelo="${veiculo.AnoModelo}"><h2>${veiculo.Modelo} - ${anoModificado}</h2></li>`)
+        return (`<li class="favoritos-item ${x} ${tema}" data-codigo="${veiculo.CodigoFipe}" data-anoModelo="${veiculo.AnoModelo}"><button>${veiculo.Modelo} - ${anoModificado}</button></li>`)
     })}`).replaceAll(',', '')
 
     const li = document.querySelectorAll('[data-codigo]')
     li.forEach(item => {
-        item.children[0].addEventListener('click', () => {
+        item.addEventListener('click', () => {
             adicionarComparacao(item)
         })
-        item.children[0].addEventListener('dblclick', () => {
+        item.addEventListener('dblclick', () => {
             carregarInformacoesVeiculo(item)
         })
     })
@@ -73,65 +74,71 @@ function alterarCorFavorito() {
 }
 
 function Comparar() {
-        const listaComparacao = JSON.parse(localStorage.getItem('comparacao')) || ['', '']
-        const body = document.querySelector('body')
-        const span = document.createElement('span')
-        span.classList.add('comparacao')
-        span.setAttribute('data-span', '')
-        if (listaComparacao[0] !== '' && listaComparacao[1] !== '') {
-            let veiculoMaisBarato = {}
-            let diferenca = 0
-            let valor1 = parseInt(listaComparacao[0].Valor.replace(/[^\d]/g, ''))
-            let valor2 = parseInt(listaComparacao[1].Valor.replace(/[^\d]/g, ''))
-            const veiculo1 = { ...listaComparacao[0], Cor: '' }
-            const veiculo2 = { ...listaComparacao[1], Cor: '' }
-            if (valor1 > valor2) {
-                veiculo1.Cor = 'vermelho'
-                veiculo2.Cor = 'verde'
-                veiculoMaisBarato = veiculo2
-                diferenca = valor1 - valor2
-            } else {
-                veiculo2.Cor = 'vermelho'
-                veiculo1.Cor = 'verde'
-                veiculoMaisBarato = veiculo1
-                diferenca = valor2 - valor1
-            }
-            diferenca = regex(diferenca)
-            span.innerHTML = (`
-                <div class="comparacao-container">
-                    <button class="comparacao-botao--fechar" data-botaofechar><i class="fas fa-times"></i></button>
-                    <div class="comparacao-div">
-                        <ul class="comparacao-lista">
-                            <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Modelo: ${veiculo1.Modelo}</h3></li>
-                            <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Ano: ${veiculo1.AnoModelo}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Marca: ${veiculo1.Marca}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Combustivel: ${veiculo1.Combustivel}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Preço: ${veiculo1.Valor}</h4></li>
-                        </ul>
-                        <h2 class="comparacao-x">X</h2>
-                        <ul class="comparacao-lista">
-                            <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Modelo: ${veiculo2.Modelo}</h3></li>
-                            <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Ano: ${veiculo2.AnoModelo}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Marca: ${veiculo2.Marca}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Combustivel: ${veiculo2.Combustivel}</h4></li>
-                            <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Preço: ${veiculo2.Valor}</h4></li>
-                        </ul>
-                    </div>
-                    <div class="comparacao-resultado">
-                        <h2>O veiculo: ${veiculoMaisBarato.Modelo} ano: ${veiculoMaisBarato.AnoModelo} é <br><span class="barato">R$ ${diferenca}</span> mais barato.</h2>
-                    </div>
-                </div>
-            `)
+    const listaComparacao = JSON.parse(localStorage.getItem('comparacao')) || ['', '']
+    const body = document.querySelector('body')
+    const span = document.createElement('span')
+    span.classList.add('comparacao')
+    span.setAttribute('data-span', '')
+    let tema = ''
+    if (getTema()) tema = 'compararaoClaro'
+    if (listaComparacao[0] !== '' && listaComparacao[1] !== '') {
+        let veiculoMaisBarato = {}
+        let diferenca = 0
+        let valor1 = parseInt(listaComparacao[0].Valor.replace(/[^\d]/g, ''))
+        let valor2 = parseInt(listaComparacao[1].Valor.replace(/[^\d]/g, ''))
+        const veiculo1 = { ...listaComparacao[0], Cor: '' }
+        const veiculo2 = { ...listaComparacao[1], Cor: '' }
+        if (valor1 > valor2) {
+            veiculo1.Cor = 'vermelho'
+            veiculo2.Cor = 'verde'
+            veiculoMaisBarato = veiculo2
+            diferenca = valor1 - valor2
         } else {
-            span.innerHTML = (`
-                <div class="comparacao-container">
+            veiculo2.Cor = 'vermelho'
+            veiculo1.Cor = 'verde'
+            veiculoMaisBarato = veiculo1
+            diferenca = valor2 - valor1
+        }
+        diferenca = regex(diferenca)
+        span.innerHTML = (`
+            <div class="comparacao-container ${tema}">
+                <button class="comparacao-botao--fechar" data-botaofechar><i class="fas fa-times"></i></button>
+                <div class="comparacao-div">
+                    <ul class="comparacao-lista">
+                        <li class="comparacao-item"><h4>Modelo: ${veiculo1.Modelo}</h4></li>
+                        <li class="comparacao-item"><h4>Ano: ${veiculo1.AnoModelo}</h4></li>
+                        <li class="comparacao-item"><h4>Marca: ${veiculo1.Marca}</h4></li>
+                        <li class="comparacao-item"><h4>Combustivel: ${veiculo1.Combustivel}</h4></li>
+                        <li class="comparacao-item"><h4 class="${veiculo1.Cor}">Preço: ${veiculo1.Valor}</h4></li>
+                    </ul>
+                    <img src="src/assets/img/versus.png" alt="versus" class="comparacao-x">
+                    <ul class="comparacao-lista">
+                        <li class="comparacao-item"><h4>Modelo: ${veiculo2.Modelo}</h4></li>
+                        <li class="comparacao-item"><h4>Ano: ${veiculo2.AnoModelo}</h4></li>
+                        <li class="comparacao-item"><h4>Marca: ${veiculo2.Marca}</h4></li>
+                        <li class="comparacao-item"><h4>Combustivel: ${veiculo2.Combustivel}</h4></li>
+                        <li class="comparacao-item"><h4 class="${veiculo2.Cor}">Preço: ${veiculo2.Valor}</h4></li>
+                    </ul>
+                </div>
+                <div class="comparacao-resultado">
+                    <h2>O veiculo: ${veiculoMaisBarato.Modelo} ano: ${veiculoMaisBarato.AnoModelo} é <br><span class="barato">R$ ${diferenca}</span> mais barato.</h2>
+                </div>
+            </div>
+        `)
+    } else {
+        span.innerHTML = (`
+                <div class="comparacao-container ${tema}">
                     <button class="comparacao-botao--fechar" data-botaofechar><i class="fas fa-times"></i></button>
                     <h2>Você precisa selecionar 2 veiculos.</h2>
                 </div>
             `)
-        }
-        body.prepend(span)
-        fecharSpan()
+    }
+    body.prepend(span)
+    const botaoFechar = document.querySelector('[data-botaofechar]')
+    botaoFechar.addEventListener('click', () => {
+        const span = document.querySelector('[data-span]')
+        span.remove()
+    })
 }
 
 function pegarVeiculoPeloCodigoFipe(item) {
@@ -186,12 +193,4 @@ function limparFavoritos() {
     localStorage.setItem('lista', JSON.stringify([]))
     atualizaFavoritos()
     criarTipoVeiculo()
-}
-
-function fecharSpan() {
-    const botaoFechar = document.querySelector('[data-botaofechar]')
-    botaoFechar.addEventListener('click', () => {
-        const span = document.querySelector('[data-span]')
-        span.remove()
-    })
 }

@@ -1,26 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/assets/css/style.css">
     <script src="https://kit.fontawesome.com/055f80ca30.js" crossorigin="anonymous"></script>
-    
     <title>Fipe App</title>
 </head>
+
 <body>
-    <div class="favoritos">
-        <h2 class="favoritos-titulo-lista">Lista de Favoritos</h2>
-        <ul class="favoritos-lista" data-listafavoritos>
-        </ul>
-        <button class="favoritos-btn--comparar" data-btncomparar>Comparar</button>
-        <button class="favoritos-btn--comparar" data-btnlimparcomparar>Limpar Comparar</button>
-        <button class="favoritos-btn--comparar" data-btnlimparfavoritos>Limpar Favoritos</button>
-    </div>
+    <header>
+        <div class="container cabecalho">
+            <h1>Fipe Plus</h1>
+            <div class="div-liga--desliga">
+                <h6>Escuro</h6>
+                <input type="checkbox" class="checkbox" id="tema" data-tema>
+                <label for="tema" class="botao__liga-desliga"></label>
+                <h6>Claro</h6>
+            </div>
+        </div>
+    </header>
     <main>
-        <section data-veiculos class="principal"></section>
+        <div class="container conteudo">
+            <div class="favoritos">
+                <h2 class="favoritos-titulo-lista">Lista de Favoritos</h2>
+                <div class="favoritos-div">
+                    <ul class="favoritos-lista" data-listafavoritos></ul>
+                </div>
+                <div class="favoritos-botoes">
+                    <button class="favoritos-btn comparar" data-btncomparar>Comparar</button>
+                    <button class="favoritos-btn limparFavoritos" data-btnlimparfavoritos>Limpar Favoritos</button>
+                </div>
+            </div>
+            <div class="veiculos">
+                <section class="veiculos-secao" data-veiculos></section>
+            </div>
+            <script src="src/assets/js/carregar.js" type="module"></script>
+        </div>
     </main>
-    <script src="src/assets/js/carregar.js" type="module"></script>
+    <footer>
+        <div class="container rodape">
+            <h5>Site desenvolvidor por Rodolfo
+                <a href="https://www.linkedin.com/in/rodolfo-carvalho-sant-ana-6064211a2/" class="link"><i
+                        class="fab fa-linkedin icone"></i></a>
+                <a href="https://github.com/rdlf16" class="link"><i class="fab fa-github icone"></i></a>
+                realizando consultas a API desenvolvida por:
+                <a href="https://deividfortuna.github.io/fipe/" class="link">Deivid Fortuna</a>
+            </h5>
+        </div>
+    </footer>
 </body>
+
 </html>
