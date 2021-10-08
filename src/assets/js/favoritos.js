@@ -121,7 +121,7 @@ function Comparar() {
                     </ul>
                 </div>
                 <div class="comparacao-resultado">
-                    <h2>O veiculo: ${veiculoMaisBarato.Modelo} ano: ${veiculoMaisBarato.AnoModelo} é <br><span class="barato">R$ ${diferenca}</span> mais barato.</h2>
+                    <h2>O veiculo: ${veiculoMaisBarato.Modelo} <br>Ano: ${veiculoMaisBarato.AnoModelo} é <br><span class="barato">R$ ${diferenca}</span> mais barato.</h2>
                 </div>
             </div>
         `)
