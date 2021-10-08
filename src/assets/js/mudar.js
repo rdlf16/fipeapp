@@ -1,4 +1,5 @@
 import { pegarMarcas, pegarVeiculos, pegarAno, pegarPreco } from './captarDados.js';
+import { criarPreco, criarTipoVeiculo } from './criar.js';
 
 let tipo = null
 let marca = null
@@ -62,7 +63,7 @@ function mudarAno(evento) {
         if (tipo === 'null' || marca === 'null' || modelo === 'null' || ano === 'null') {
             criarTipoVeiculo()
         } else {
-            pegarPreco(tipo, marca, modelo, ano)
+            pegarPreco(tipo, marca, modelo, ano, criarPreco)// Alterado
         }
 }
 

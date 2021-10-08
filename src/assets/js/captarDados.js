@@ -28,13 +28,15 @@ function pegarAno(tipo, marca, modelo) {
             criarAnos(data)
         })
 }
-function pegarPreco(tipo, marca, modelo, ano) {
+function pegarPreco(tipo, marca, modelo, ano, next) {
     fetch(urlBase + tipo + '/marcas/' + marca + '/modelos/' + modelo + '/anos/' + ano)
         .then(resp => {
             return resp.json()
         })
         .then(data => {
-            criarPreco(data)
+            const busca = {tipo, marca, modelo, ano}
+            const veiculo = {...data, ...busca}
+            next(veiculo)// Alterar
         })
 }
 

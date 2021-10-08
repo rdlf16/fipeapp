@@ -123,7 +123,8 @@ export function criarAnos(dados) {
         const option = document.createElement('option')
         option.classList.add('veiculos-item')
         option.value = ano.codigo
-        if(ano.nome === '32000') {
+        let anoAlterado = ano.nome.replace(/[^\d]/g, '')
+        if(anoAlterado === '32000') {
             option.innerText = '0km'
         } else {
             option.innerText = ano.nome
@@ -141,7 +142,7 @@ export function criarAnos(dados) {
     div.appendChild(select)
     section.appendChild(div)
 }
-export function criarPreco(dados) {
+export function criarPreco(dados) { // Alterado
     const anoModificado = dados.AnoModelo === 32000 ? `0km` : dados.AnoModelo
     if (dados !== null && dados !== []) {
         const active = verificarSeItemEFavorito(dados)
@@ -161,7 +162,7 @@ export function criarPreco(dados) {
         icone.setAttribute('data-iconeFavorito', '')
         botao.appendChild(icone)
         botao.addEventListener('click', () => {
-            addLista(dados)
+            addLista(dados)// Alterado
         })
 
         const precoEl = document.querySelector('[data-preco]')

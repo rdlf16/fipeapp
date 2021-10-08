@@ -1,4 +1,5 @@
 import regex from "../util/util.js"
+import { pegarPreco } from "./captarDados.js"
 import { criarTipoVeiculo, criarPreco } from './criar.js'
 import { getTema } from "./tema.js"
 
@@ -39,10 +40,14 @@ export function atualizaFavoritos() {
 
 function carregarInformacoesVeiculo(item) {
     const veiculo = pegarVeiculoPeloCodigoFipe(item)
-    criarPreco(veiculo)
+    let tipo = veiculo.tipo
+    const marca = veiculo.marca
+    const modelo = veiculo.modelo
+    const ano = veiculo.ano
+    pegarPreco(tipo, marca, modelo, ano, criarPreco)
 }
 
-export function addLista(dados) {
+export function addLista(dados) { // Alterado
     let igual = false
     const favoritos = JSON.parse(localStorage.getItem('comparacao')) || []
     const lista = JSON.parse(localStorage.getItem('lista')) || []
@@ -61,7 +66,7 @@ export function addLista(dados) {
         })
     }
     if (!igual) {
-        lista.push(dados)
+        lista.push(dados) // Alterado
     }
     localStorage.setItem('lista', JSON.stringify(lista))
     alterarCorFavorito() // A cada click adiciona ou remove o active do icone.
