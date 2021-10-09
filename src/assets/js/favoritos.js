@@ -8,7 +8,7 @@ btnLimparFavoritos.addEventListener('click', limparFavoritos)
 const btnComparar = document.querySelector('[data-btncomparar]')
 btnComparar.addEventListener('click', Comparar)
 
-export function atualizaFavoritos() {
+function atualizaFavoritos() {
     const veiculos = JSON.parse(localStorage.getItem('lista')) || []
     const listaComparacao = JSON.parse(localStorage.getItem('comparacao')) || ['', '']
     const lista = document.querySelector('[data-listafavoritos]')
@@ -38,8 +38,8 @@ export function atualizaFavoritos() {
     })
 }
 
-function carregarInformacoesVeiculo(item) {
-    const veiculo = pegarVeiculoPeloCodigoFipe(item)
+function carregarInformacoesVeiculo(dadosVeiculo) {
+    const veiculo = pegarVeiculoPeloCodigoFipe(dadosVeiculo)
     let tipo = veiculo.tipo
     const marca = veiculo.marca
     const modelo = veiculo.modelo
@@ -47,7 +47,7 @@ function carregarInformacoesVeiculo(item) {
     pegarPreco(tipo, marca, modelo, ano, criarPreco)
 }
 
-export function addLista(dados) { // Alterado
+function addLista(dados) { // Alterado
     let igual = false
     const favoritos = JSON.parse(localStorage.getItem('comparacao')) || []
     const lista = JSON.parse(localStorage.getItem('lista')) || []
@@ -158,14 +158,15 @@ function pegarVeiculoPeloCodigoFipe(item) {
 }
 
 function adicionarComparacao(item) {
-    let itemVeiculo = null
+    let veiculoCompleto = null
     let veiculosComparacao = JSON.parse(localStorage.getItem('comparacao')) || ['', '']
     let removeu = false
 
-    itemVeiculo = pegarVeiculoPeloCodigoFipe(item)
+    veiculoCompleto = pegarVeiculoPeloCodigoFipe(item)
+    atualizarPreco(veiculoCompleto)
 
     veiculosComparacao.forEach((veiculo, index) => {
-        if (JSON.stringify(veiculo) === JSON.stringify(itemVeiculo)) {
+        if (JSON.stringify(veiculo) === JSON.stringify(veiculoCompleto)) {
             veiculosComparacao[index] = ''
             item.classList.remove('active')
             removeu = true
@@ -174,10 +175,10 @@ function adicionarComparacao(item) {
 
     if (!removeu) {
         if (veiculosComparacao[0] === '') {
-            veiculosComparacao[0] = itemVeiculo
+            veiculosComparacao[0] = veiculoCompleto
             item.classList.add('active')
         } else if (veiculosComparacao[1] === '') {
-            veiculosComparacao[1] = itemVeiculo
+            veiculosComparacao[1] = veiculoCompleto
             item.classList.add('active')
         }
     }
@@ -199,3 +200,17 @@ function limparFavoritos() {
     atualizaFavoritos()
     criarTipoVeiculo()
 }
+
+function atualizarPreco(dados) {
+    const lista = JSON.parse(localStorage.getItem('lista')) || []
+    if (lista !== null) {
+        lista.forEach((veiculo, index) => {
+            if (JSON.stringify(veiculo) === JSON.stringify(dados)) {
+                lista[index] = dados
+            }
+        })
+        localStorage.setItem('lista', JSON.stringify(lista))
+    }
+}
+
+export { atualizarPreco, addLista, atualizaFavoritos}

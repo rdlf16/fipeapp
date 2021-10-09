@@ -1,4 +1,4 @@
-import { addLista } from './favoritos.js';
+import { addLista, atualizarPreco } from './favoritos.js';
 import { getTema } from './tema.js'
 import { mudarTipo, mudarModelo, mudarMarca, mudarAno } from './mudar.js';
 const tipos = [{ caminhao: 'caminhoes' }, { carro: 'carros' }, { moto: 'motos' }]
@@ -143,6 +143,7 @@ export function criarAnos(dados) {
     section.appendChild(div)
 }
 export function criarPreco(dados) { // Alterado
+    atualizarPreco(dados)
     const anoModificado = dados.AnoModelo === 32000 ? `0km` : dados.AnoModelo
     if (dados !== null && dados !== []) {
         const active = verificarSeItemEFavorito(dados)
